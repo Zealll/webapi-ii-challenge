@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
             .json(individualPost)
         }
     })
-    .catch(err => {
+    .catch(() => {
         res
         .status(500)
         .json({error: "The post information could not be retrieved."})
@@ -83,12 +83,33 @@ router.put('/:id', (req, res) => {
                 .json({updatedPost})
             }
         })
-        .catch(err => {
+        .catch(() => {
             res
             .status(500)
             .json({error: "The post information could not be modified."})
         })
     }
+})
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id
+    Posts
+    .remove(id)
+    .then(deletedPost => {
+        if(!deletedPost) {
+            res
+            .status(404)
+            .json({message: `The post with the specified ID of ${id} does not exist.`})
+        } {
+            res
+            .json('Your Post Has Been Deleted').end()
+        }
+    })
+    .catch(() => {
+        res
+        .status(500)
+        .json({error: "The post could not be removed"})
+    })
 })
 
 
