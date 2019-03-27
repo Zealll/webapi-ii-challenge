@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
     Posts
     .findById(id)
     .then(individualPost => {
-        if(!individualPost) {
+        if(individualPost.length < 0) {
             res
             .status(404)
             .json({message: `The post with the specified ID of ${id} does not exist.`})
