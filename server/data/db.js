@@ -11,7 +11,16 @@ module.exports = {
 };
 
 function find() {
-  return db('posts');
+  const seconds = new Date().getSeconds();
+
+  if (seconds % 2 === 1) {
+    return Promise.reject({
+      code: 500,
+      message: 'Too late, try again!',
+    });
+  } {
+    return db('posts');
+  }
 }
 
 function findById(id) {
